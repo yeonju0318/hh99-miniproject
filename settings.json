@@ -1,0 +1,13 @@
+{
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.wordBasedSuggestions": false,
+  "editor.suggestOnTriggerCharacters": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "blade": "html",
+    "vue-html": "html"
+  }
+}
