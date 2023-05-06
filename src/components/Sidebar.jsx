@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function Sidebar() {
   return (
     <>
-      <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-black ">
+      <div className="md:flex hidden flex-col w-[170px] py-10 px-4 ">
         <NavLinks />
       </div>
     </>
@@ -12,12 +12,24 @@ function Sidebar() {
 }
 
 const NavLinks = () => (
-  <div className="mt-10">
+  <div className="mt-12">
     <NavLink
     to="/"
-    className="flex flex-row justify-start items-center my-8 text-sm font-medium text-gray-400 hover:text-cyan-400">
+    className="flex flex-row justify-start items-center my-8 text-1xl font-medium text-black hover:text-cyan-400">
       <icon className="w-6 h-6 mr-2"/>
-      버튼목록
+      홈으로
+    </NavLink>
+    <NavLink
+    to="/question"
+    className="flex flex-row justify-start items-center my-8 text-1xl font-medium  text-black hover:text-cyan-400">
+      <icon className="w-6 h-6 mr-2"/>
+      질문하러 가기
+    </NavLink>
+    <NavLink
+    to="/"
+    className="flex flex-row justify-start items-center my-8 text-1xl font-medium  text-black hover:text-cyan-400">
+      <icon className="w-6 h-6 mr-2"/>
+      찜목록
     </NavLink>
   </div>
 );
