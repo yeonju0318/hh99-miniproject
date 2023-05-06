@@ -4,7 +4,7 @@ function Search() {
   return (
     <div className="search">
       <div className="searchForm">
-        <input type="text" placeholder="안녕하세요" />
+        <input type="text" placeholder="Find" />
       </div>
     </div>
   );
