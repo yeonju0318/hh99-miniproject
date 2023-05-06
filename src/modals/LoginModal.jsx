@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
-import { useMutation } from 'react-query';
-import { loginUser } from '../api/auth';
-import Heading from '../components/Heading';
-import useLoginModal from '../hooks/useLoginModal';
-import Modal from './Modal';
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useContext, useState } from "react";
+import { useMutation } from "react-query";
+import { loginUser } from "../api/auth";
+import Heading from "../components/Heading";
+import AuthContext from "../hooks/useCurrentUser";
+import useLoginModal from "../hooks/useLoginModal";
+import Modal from "./Modal";
 
 function LoginModal() {
+  const { auth, setAuth } = useContext(AuthContext);
   const loginModal = useLoginModal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,17 +24,40 @@ function LoginModal() {
     password: password,
   };
 
-  const onSubmit = () => {
-    mutationLogin.mutate(user);
-    setEmail("");
-    setPassword("");
-    loginModal.onClose();
+  // useContext 이용해서 로그인하기.
+  const onSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/member/login`,user);
+
+      console.log(JSON.stringify(response?.message));
+      const accessHeader = response.headers.get("Access_Token");
+      const accessToken = accessHeader.split(" ")[1];
+      console.log(accessToken);
+      const roles = response?.data?.roles;
+      Cookies.set("auth", accessToken);
+      setAuth(response.data);
+      setEmail("");
+      setPassword("");
+      loginModal.onClose();
+      alert("로그인 성공!");
+    } catch (err) {
+      if (!err?.response) {
+        console.log("에러메세지가 없습니다.");
+      } else if (err.response?.status === 400) {
+        console.log("아이디 또는 비밀번호를 확인해주세요!");
+      } else if (err.response?.status === 401) {
+        console.log("가입되지 않은 유저입니다.");
+      }
+    }
+    // mutationLogin.mutate(user);
   };
+  console.log(auth);
 
   // 핸들러 부분
   const handleInputChange = (e) => {
     switch (e.target.name) {
-      case "email":
+      case "nickname":
         setEmail(e.target.value);
         break;
       case "password":
@@ -66,7 +93,6 @@ function LoginModal() {
           Email
         </label>
       </div>
-
 
       {/* Password INPUT */}
       <div className="w-full relative">
@@ -105,4 +131,4 @@ function LoginModal() {
   );
 }
 
-export default LoginModal
+export default LoginModal;

@@ -1,15 +1,18 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+// 회원가입
 const addUser = async (newUser) => {
   try {
-    await axios.post(`${process.env.REACT_APP_SERVER_URL}/member`, newUser);
+    await axios.post(`${process.env.REACT_APP_SERVER_URL}/member/register`, newUser);
     return alert("회원가입 성공!");
   } catch (error) {
     console.log(error);
   }
 };
 
+
+// 로그인
 const loginUser = async (user) => {
   try {
     const response = await axios.post(`http://3.38.191.164/login`, user);
