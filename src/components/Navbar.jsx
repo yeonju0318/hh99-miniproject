@@ -8,17 +8,17 @@ import UserMenu from "./UserMenu";
 function Navbar() {
   return (
     <>
-      <div className="fixed-top w-full bg-white z-10 shadow-sm">
+      <div className="fixed-top w-full z-10 shadow-sm bg-white">
         <div className="py-4 border-b-[1px]">
           <Container>
-          <div className="flex flex-row items-center justify-between gap-3 md:gap-0 ">
-            <Logo />
-            <NavMain />
-            <UserMenu />
-          </div>
+            <div className="flex flex-row items-center justify-between gap-3 md:gap-0 ">
+              <Logo />
+              <NavMain />
+              <UserMenu />
+            </div>
           </Container>
         </div>
-        <Categories/>
+        <Categories />
       </div>
     </>
   );
