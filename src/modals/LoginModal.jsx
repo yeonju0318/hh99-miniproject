@@ -28,7 +28,9 @@ function LoginModal() {
   const onSubmit = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/member/login`,user);
+        `${process.env.REACT_APP_SERVER_URL}/member/login`,
+        user
+      );
 
       console.log(JSON.stringify(response?.message));
       const accessHeader = response.headers.get("Access_Token");
@@ -57,7 +59,7 @@ function LoginModal() {
   // 핸들러 부분
   const handleInputChange = (e) => {
     switch (e.target.name) {
-      case "nickname":
+      case "email":
         setEmail(e.target.value);
         break;
       case "password":
