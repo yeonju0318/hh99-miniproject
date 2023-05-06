@@ -13,14 +13,19 @@ function Message() {
         <div className="messageContent">
           <p>hello</p>
         </div>
-        <div className="messageOwner">
-          <p>hello</p>
-        </div>
-        <div className="messageInfo">
-          <img
-            src="https://i.namu.wiki/i/Trhh3NbX78ZqUJyFblACvejsfPNdAXXN8jQtPo10nSVq7Bk1ZvDKB9d1balCxMLeWXDbZ8U_R1XWhuIwI1dVFA.svg"
-            alt=""
-          />
+      </div>
+      
+      <div className="flex justify-end">
+        <div className="message">
+          <div className="messageOwner">
+            <p>hello</p>
+          </div>
+          <div className="messageInfo">
+            <img
+              src="https://i.namu.wiki/i/Trhh3NbX78ZqUJyFblACvejsfPNdAXXN8jQtPo10nSVq7Bk1ZvDKB9d1balCxMLeWXDbZ8U_R1XWhuIwI1dVFA.svg"
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </>
