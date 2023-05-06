@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Messages from "./Messages";
-import { FaRegHeart } from "react-icons/fa";
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 
 function Chat() {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const likeHandler = () => {
+    setIsLiked(!isLiked);
+  };
+
   return (
     <div className="chat">
       <div className="chatInfo">
-        <div className="chatbtn">
-          <FaRegHeart />
+        <div className="chatbtn" onClick={likeHandler}>
+          {isLiked ? <AiFillHeart size="20" /> : <AiOutlineHeart size="20" />}
         </div>
       </div>
       <Messages />
