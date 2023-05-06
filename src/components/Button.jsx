@@ -51,7 +51,7 @@ function Button({ size, color, onClick, children }) {
     ${({ size }) => {
       switch (size) {
         case "small":
-          return `width: 90px; height: 35px; font-weight:500`;
+          return `width: 45px; height: 25px; font-weight:500`;
         case "medium":
           return `width: 120px; height: 40px; font-weight:500;`;
         case "large":
