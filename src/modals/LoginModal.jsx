@@ -1,45 +1,41 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
-import { useMutation } from "react-query";
-import { loginUser } from "../api/auth";
+import React, { useCallback, useContext, useState } from "react";
 import Heading from "../components/Heading";
 import AuthContext from "../hooks/useCurrentUser";
 import useLoginModal from "../hooks/useLoginModal";
 import Modal from "./Modal";
 
 function LoginModal() {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
   const loginModal = useLoginModal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // 유저 회원가입
-  const mutationLogin = useMutation(loginUser, {
-    onSuccess: () => {},
-  });
-
   const user = {
     email: email,
     password: password,
   };
 
-  // useContext 이용해서 로그인하기.
+  // 로그인 api 통신
   const onSubmit = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/member/login`,user);
+        `${process.env.REACT_APP_SERVER_URL}/member/login`,
+        user
+      );
 
       console.log(JSON.stringify(response?.message));
       const accessHeader = response.headers.get("Access_Token");
       const accessToken = accessHeader.split(" ")[1];
-      console.log(accessToken);
+      console.log(response.data);
       const roles = response?.data?.roles;
       Cookies.set("auth", accessToken);
-      setAuth(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+      setAuth(response.data.data);
       setEmail("");
       setPassword("");
       loginModal.onClose();
+      window.location.replace("/");
       alert("로그인 성공!");
     } catch (err) {
       if (!err?.response) {
@@ -50,28 +46,28 @@ function LoginModal() {
         console.log("가입되지 않은 유저입니다.");
       }
     }
-    // mutationLogin.mutate(user);
   };
-  console.log(auth);
-
   // 핸들러 부분
-  const handleInputChange = (e) => {
-    switch (e.target.name) {
-      case "nickname":
-        setEmail(e.target.value);
-        break;
-      case "password":
-        setPassword(e.target.value);
-        break;
-      default:
-        break;
-    }
-  };
+  const handleInputChange = useCallback(
+    (e) => {
+      switch (e.target.name) {
+        case "email":
+          setEmail(e.target.value);
+          break;
+        case "password":
+          setPassword(e.target.value);
+          break;
+        default:
+          break;
+      }
+    },
+    [setEmail, setPassword]
+  );
 
   // 모달 Body 부분에 들어갈 내용
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Login" subtitle="Login" />
+      <Heading title="로그인" subtitle="" />
 
       {/* Email INPUT */}
       <div className="w-full relative">
@@ -90,7 +86,7 @@ function LoginModal() {
         ${email && "-translate-y-4"}
         `}
         >
-          Email
+          이메일
         </label>
       </div>
 
@@ -111,7 +107,7 @@ function LoginModal() {
         ${password && "-translate-y-4"}
         `}
         >
-          Password
+          비밀번호
         </label>
       </div>
     </div>
@@ -121,8 +117,8 @@ function LoginModal() {
     <>
       <Modal
         isOpen={loginModal.isOpen}
-        title="Login"
-        actionLabel="Login"
+        title="로그인"
+        actionLabel="로그인"
         onClose={loginModal.onClose}
         body={bodyContent}
         onSubmit={onSubmit}
