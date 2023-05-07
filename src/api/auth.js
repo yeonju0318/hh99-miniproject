@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 // 회원가입
 const addUser = async (newUser) => {
@@ -11,18 +10,14 @@ const addUser = async (newUser) => {
   }
 };
 
-
-// 로그인
-const loginUser = async (user) => {
+// 프로필 사진 변경
+const changeProfile = async () => {
   try {
-    const response = await axios.post(`http://3.38.191.164/login`, user);
-    const token = response.data.token;
-    const expirationTime = new Date();
-    expirationTime.setMinutes(expirationTime.getMinutes() + 10);
-    Cookies.set("auth", token, { expires: expirationTime });
+    
   } catch (error) {
-    console.log(error);
+    
   }
-};
+}
 
-export { addUser, loginUser };
+
+export { addUser, changeProfile };
