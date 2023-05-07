@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useMutation } from "react-query";
 import { addUser } from "../api/auth";
 import Heading from "../components/Heading";
@@ -31,26 +31,30 @@ function RegisterModal() {
   };
 
   // 핸들러 부분
-  const handleInputChange = (e) => {
-    switch (e.target.name) {
-      case "email":
-        setEmail(e.target.value);
-        break;
-      case "nickname":
-        setNickname(e.target.value);
-        break;
-      case "password":
-        setPassword(e.target.value);
-        break;
-      default:
-        break;
-    }
-  };
+
+  const handleInputChange = useCallback(
+    (e) => {
+      switch (e.target.name) {
+        case "email":
+          setEmail(e.target.value);
+          break;
+        case "nickname":
+          setNickname(e.target.value);
+          break;
+        case "password":
+          setPassword(e.target.value);
+          break;
+        default:
+          break;
+      }
+    },
+    [setEmail,setNickname, setPassword]
+  );
 
   // 모달 Body 부분에 들어갈 내용
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Register" subtitle="Sign up!" />
+      <Heading title="회원가입" subtitle="지금 어떤 노래를 듣고싶은가요?" />
 
       {/* Email INPUT */}
       <div className="w-full relative">
@@ -69,7 +73,7 @@ function RegisterModal() {
         ${email && "-translate-y-4"}
         `}
         >
-          Email
+          이메일
         </label>
       </div>
 
@@ -90,7 +94,7 @@ function RegisterModal() {
         ${nickname && "-translate-y-4"}
         `}
         >
-          nickname
+          닉네임
         </label>
       </div>
 
@@ -111,7 +115,7 @@ function RegisterModal() {
         ${password && "-translate-y-4"}
         `}
         >
-          Password
+          비밀번호
         </label>
       </div>
     </div>
@@ -121,8 +125,8 @@ function RegisterModal() {
     <>
       <Modal
         isOpen={registerModal.isOpen}
-        title="Register"
-        actionLabel="Sign Up"
+        title="회원가입"
+        actionLabel="가입하기"
         onClose={registerModal.onClose}
         body={bodyContent}
         onSubmit={onSubmit}
