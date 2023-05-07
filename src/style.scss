@@ -1,7 +1,7 @@
 .question {
-  height: 100vh;
+  height: auto;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: start;
   padding-left: 13%;
   width: 100%;
@@ -16,8 +16,11 @@
     box-shadow: 2px 2px 5px #2f2d52;
 
     .sidebar {
-      flex: 0.8;
-      background-color: #3d3c61;
+
+      flex: 0.7;
+      height: auto;
+      background-color: #3e3c61;
+
       position: relative;
 
       .navbar {
@@ -90,6 +93,8 @@
 
 .chat {
   flex: 2;
+  height: auto;
+
 
   .chatInfo {
     height: 50px;
