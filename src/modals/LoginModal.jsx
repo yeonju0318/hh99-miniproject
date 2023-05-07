@@ -29,7 +29,10 @@ function LoginModal() {
       const accessToken = accessHeader.split(" ")[1];
       console.log(response.data);
       const roles = response?.data?.roles;
-      Cookies.set("auth", accessToken);
+      const expirationTime = new Date();
+      expirationTime.setMinutes(expirationTime.getMinutes() + 10);
+      Cookies.set("auth", accessToken, { expires: expirationTime });
+      
       localStorage.setItem("user", JSON.stringify(response.data.data));
       setAuth(response.data.data);
       setEmail("");
@@ -37,6 +40,7 @@ function LoginModal() {
       loginModal.onClose();
       window.location.replace("/");
       alert("로그인 성공!");
+
     } catch (err) {
       if (!err?.response) {
         console.log("에러메세지가 없습니다.");
