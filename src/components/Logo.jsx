@@ -6,7 +6,7 @@ function Logo() {
   return (
     <img 
     onClick={() => navigate('/')}
-    alt="Logo" className='hidden md:block cursor-pointer' height="100" width="100" src={process.env.PUBLIC_URL + '/imgs/logo.png'} />
+    alt="Logo" className='z-20 block cursor-pointer' height="100" width="100" src={process.env.PUBLIC_URL + '/imgs/logo.png'} />
   )
 }
 
