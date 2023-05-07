@@ -48,6 +48,7 @@ function LoginModal() {
     }
   };
   // 핸들러 부분
+
   const handleInputChange = useCallback(
     (e) => {
       switch (e.target.name) {
