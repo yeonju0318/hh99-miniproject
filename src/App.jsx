@@ -5,6 +5,7 @@ import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import Router from "./shared/Router";
 
+
 function App() {
 
   return (
@@ -15,7 +16,6 @@ function App() {
 
       <div className="relative flex">
         <Sidebar />
-
         <div className="flex-1 flex flex-col">
           <div className="px-6 h-full overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
             <div className="flex-1 h-fit pb-40">
