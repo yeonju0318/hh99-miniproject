@@ -1,7 +1,7 @@
 .question {
-  height: 100vh;
+  height: auto;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: start;
   padding-left: 13%;
   width: 100%;
@@ -17,6 +17,7 @@
 
     .sidebar {
       flex: 0.7;
+      height: auto;
       background-color: #3e3c61;
       position: relative;
 
@@ -77,6 +78,8 @@
 }
 .chat {
   flex: 2;
+  height: auto;
+
 
   .chatInfo {
     height: 50px;
