@@ -488,7 +488,7 @@ function ListingCard({
               />
             </div>
           </div>
-          <div>
+          <div >
             <div className="flex">
               <button className="text-xs  sm:font ">{`#${feel} `}</button>
               <button className="text-xs pl-3">{`#${weather} `} </button>

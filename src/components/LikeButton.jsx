@@ -17,8 +17,21 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
   });
 
   const toggleLike = async (e) => {
+    const user = localStorage.getItem("user");
+    const authCookie = Cookies.get("auth");
+
+    console.log(user);
+    console.log(!authCookie);
+
+    if (user && !authCookie) {
+      localStorage.removeItem("user");
+      window.location.replace("/");
+      return alert("세션이 만료되었습니다. 다시 로그인해주세요!");
+    }
     if (Cookies.get("auth") === undefined) {
       e.preventDefault();
+      localStorage.removeItem("user");
+      window.location.replace("/");
       return alert("로그인이 필요한 기능입니다!");
     }
     if (hasLiked) {
