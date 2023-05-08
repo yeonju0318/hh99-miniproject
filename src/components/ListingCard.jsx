@@ -488,14 +488,16 @@ function ListingCard({
               />
             </div>
           </div>
-          <div className="flex">
-            <button>{`#${feel} `}</button>
-            <button className="pl-4">{`#${weather} `} </button>
-            <button className="pl-4">{`#${genre} `} </button>
-          </div>
-          <div className="font-semibold">가수</div>
-          <div className="flex flex-row items-center gap-1">
-            <div className="font-semibold">노래제목</div>
+          <div>
+            <div className="flex">
+              <button className="text-xs  sm:font ">{`#${feel} `}</button>
+              <button className="text-xs pl-3">{`#${weather} `} </button>
+              <button className="text-xs pl-3">{`#${genre} `} </button>
+            </div>
+            <div className="font-semibold">가수</div>
+            <div className="flex flex-row items-center gap-1">
+              <div className="font-semibold">노래제목</div>
+            </div>
           </div>
         </div>
       </Link>
