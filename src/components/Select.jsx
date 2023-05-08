@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
+import useFeelTag from "../hooks/useFeelTag";
 
 function Select({ today }) {
   const getColor = (tag) => {
@@ -29,6 +30,15 @@ function Select({ today }) {
         return "Green";
     }
   };
+
+  const feelTag = useFeelTag();
+  const onClickFeelTag = (tag) => {
+    feelTag.setFeelTag(tag)
+  }
+
+
+
+
   return (
     <div>
       <div className="say">
@@ -38,14 +48,14 @@ function Select({ today }) {
       <div className="select">
         <div className="flex justify-around">
           {today.tag.slice(0, 3).map((tag) => (
-            <Button key={tag} size="small" color={getColor(tag)}>
+            <Button key={tag} size="small" color={getColor(tag)} onClick={() => {onClickFeelTag(tag)}} >
               {tag}
             </Button>
           ))}
         </div>
         <div className="flex justify-around">
           {today.tag.slice(3).map((tag) => (
-            <Button key={tag} size="small" color={getColor(tag)}>
+            <Button key={tag} size="small" color={getColor(tag)} onClick={() => {onClickFeelTag(tag)}} >
               {tag}
             </Button>
           ))}

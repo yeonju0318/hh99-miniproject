@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "./Container";
 
 function Categories() {
+  const [feelTag, setFeelTag] = useState(false)
+  const [weatherTag, setWeatherTag] = useState(false)
+  const [genreTag, setGenreTag] = useState(false)
+
   return (
     <Container>
       <div className="py-1 flex flex-row items-center justify-center overflow-x-auto gap-10 ">

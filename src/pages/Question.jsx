@@ -10,7 +10,7 @@ function Question() {
   
   
   
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
 
 

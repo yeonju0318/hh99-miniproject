@@ -1,6 +1,9 @@
 import React from "react";
+import useFeelTag from "../hooks/useFeelTag";
 
 function Message() {
+  const feelTag = useFeelTag()
+  console.log(feelTag.feelTag)
   return (
     <>
       <div className="flex justify-end">
