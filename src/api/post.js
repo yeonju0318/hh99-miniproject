@@ -30,4 +30,19 @@ const getUserLikes = async () => {
   }
 };
 
-export { getPosts, getUserLikes };
+const getDetailPost = async (postId) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/board/${postId}`,{
+        headers: {
+          Access_Token: `Bearer ${Cookies.get("auth")}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error)
+  } 
+}
+
+export { getPosts, getUserLikes, getDetailPost };

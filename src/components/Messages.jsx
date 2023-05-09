@@ -1,11 +1,11 @@
 import React from "react";
 import Message from "./Message";
 
-function Messages() {
+function Messages({detailPage}) {
   return (
     <div className="messages">
       <Message />
-      <Message />
+      <Message detailPage={detailPage} />
     </div>
   );
 }

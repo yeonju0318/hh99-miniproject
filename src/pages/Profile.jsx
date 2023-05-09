@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { changeProfile } from "../api/auth";
 import useCloudinaryUrl from "../hooks/useCloudinaryUrl";
 import { Image } from "cloudinary-react";
+import { toast } from "react-hot-toast";
 
 function Profile() {
   // 클라우디너리에 이미지 업로드하는 코드
@@ -37,51 +38,16 @@ function Profile() {
       setPublicId(null);
       cloudinaryUrl.cloudinaryUrl = "";
     } catch (error) {
-      alert("이미지 업로드에 실패했습니다.");
+      toast.error("이미지 업로드에 실패했습니다.");
     }
   };
 
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none ">
-        <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto  ">
+        <div className=" w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto  ">
           {/* CONTENT */}
-          {/* ID */}
-          <div className="w-full relative">
-        <input
 
-          name="password"
-          type="password"
-          className="peer w-full p-4 pt-6 font-light bg0white border-2 rounded-md outline-none transition pl-4 "
-        />
-        <label
-          className={`absolute text-md duration-150 transform -transform-y-3 top-5 z-10 origin-[0] left-4
-        peer-focus:scale-75
-        peer-focus:-translate-y-4
-
-        `}
-        >
-          이메일
-        </label>
-      </div>
-      {/* PASSWORD */}
-      <div className="w-full relative">
-        <input
-
-          name="password"
-          type="password"
-          className="peer w-full p-4 pt-6 font-light bg0white border-2 rounded-md outline-none transition pl-4 "
-        />
-        <label
-          className={`absolute text-md duration-150 transform -transform-y-3 top-5 z-10 origin-[0] left-4
-        peer-focus:scale-75
-        peer-focus:-translate-y-4
-
-        `}
-        >
-          비밀번호
-        </label>
-      </div>
           <div className={`translate duration-300 h-full`}>
             <div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
               <div style={{ gap: "1px" }}>
@@ -92,9 +58,12 @@ function Profile() {
                     publicId={publicId}
                   />
                 ) : (
-                  <div> 이미지를 등록해주세요!</div>
+                  <>
+                    <img className="w-full h-full" src= {process.env.PUBLIC_URL + '/imgs/placeholder.jpg'} />
+                    <div> 이미지를 등록해주세요!</div>
+                  </>
                 )}
-                <div className="flex justify-end mt-2">
+                <div className="flex justify-end mt-2 gap-3">
                   <input
                     onChange={(e) => {
                       setImageSelected(e.target.files[0]);
@@ -110,7 +79,7 @@ function Profile() {
                   />
 
                   <button
-                    className={`relative rounded-lg hover:opacity-80 transition w-20
+                    className={` rounded-lg hover:opacity-80 transition w-20
                         bg-blue-500 border-blue-500 text-white py-0.5 text-sm font-semibold border-2 
                         `}
                     onClick={uploadImage}
@@ -120,7 +89,7 @@ function Profile() {
                   </button>
                 </div>
                 <button
-                  className={`relative rounded-lg hover:opacity-80 transition w-full
+                  className={`mt-1 rounded-lg hover:opacity-80 transition w-full
                 bg-blue-500 border-blue-500 text-white py-0.5 text-sm font-semibold border-2 
                 `}
                   onClick={handleSubmitButtonClick}

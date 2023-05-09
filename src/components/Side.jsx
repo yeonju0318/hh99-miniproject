@@ -28,9 +28,6 @@ const Side = () => {
     }
   };
 
-
-
-
   const today = [
     {
       id: 1,
@@ -50,15 +47,16 @@ const Side = () => {
   ];
 
   return (
-    <div className="sidebar">
-      <Sidenav />
-      {/* <Search /> */}
-      {today.map((item) => (
-        <Select key={item.id} today={item} />
-      ))}
-      <div className="flex justify-around">
-        <button onClick={onQuestionHandler}>질문하기</button>
-        <button>올리기</button>
+    <div className="sidebar flex flex-col justify-between">
+      <div className="flex flex-col justify-around">
+        <Sidenav />
+        {/* <Search /> */}
+        {today?.map((item) => (
+          <Select key={item.id} today={item} />
+        ))}
+      </div>
+      <div >
+        <button className="w-full bg-violet-300 py-3 text-lg" onClick={onQuestionHandler}>공유하기</button>
       </div>
     </div>
   );

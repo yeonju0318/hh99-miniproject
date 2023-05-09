@@ -1,29 +1,33 @@
 import React from "react";
-import Button from "../components/Button";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { getDetailPost } from "../api/post";
+import Chat from "../components/Chat";
+import Rightbar from "../components/Rightbar";
 
 function Detail() {
+  const {id} = useParams()
+  const { isLoading, isError, data: detailPost } = useQuery('detailPost', () => getDetailPost(Number(id)), {
+    refetchOnWindowFocus: false,
+  })
+
+
+  if(isLoading){
+    return <div>로딩중 입니다...</div>
+  }
+
+  if(isError){
+    return <div>게시글을 가져오는 중 오류가 발생했습니다!</div>
+  }
+
   return (
     <>
-      <div>안녕하세요</div>
-      <Button color="Red" size="large">
-        button test
-      </Button>
-      <Button color="Purple" size="medium">
-        button test
-      </Button>
-      <Button color="Blue" size="small">
-        button test
-      </Button>
-      <Button color="Yellow" size="small">
-        button test
-      </Button>
-      <Button color="Green" size="small">
-        button test
-      </Button>
-      <Button color="Orange" size="small">
-        button test
-      </Button>
-      <Button size="small">button test</Button>
+      <div className="question mt-12">
+        <div className="container">
+          <Chat detailPost={detailPost} detailPage={true} />
+          <Rightbar detailPost={detailPost} />
+        </div>
+      </div>
     </>
   );
 }

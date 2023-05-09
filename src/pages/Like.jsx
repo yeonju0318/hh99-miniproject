@@ -10,7 +10,9 @@ function Like() {
   const [posts, userLikes] = useQueries([
     { queryKey: "posts", queryFn: getPosts },
     { queryKey: "userLikes", queryFn: getUserLikes },
-  ]);
+  ], {
+    refetchOnWindowFocus: false,
+  });
 
   const [likeLists, setLikeLists] = useState(null)
   useEffect(() => {

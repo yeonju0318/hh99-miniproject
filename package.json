@@ -16,6 +16,7 @@
     "node-sass": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icon": "^1.0.0",
     "react-icons": "^4.8.0",
     "react-query": "^3.39.3",
@@ -31,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "yarn run build && aws s3 sync build/ s3://whats-your-favorite-music"
   },
   "eslintConfig": {
     "extends": [

@@ -1,6 +1,5 @@
 import React from "react";
 import { useQueries } from "react-query";
-import { Link } from "react-router-dom";
 import { getPosts, getUserLikes } from "../api/post";
 import Container from "../components/Container";
 import EmptyState from "../components/EmptyState";
@@ -10,7 +9,9 @@ function Main() {
   const [posts, userLikes] = useQueries([
     { queryKey: "posts", queryFn: getPosts },
     { queryKey: "userLikes", queryFn: getUserLikes },
-  ]);
+  ], {
+    refetchOnWindowFocus: false,
+  });
   if (posts.isLoading) {
     return <div>로딩중입니다</div>;
   }
@@ -20,7 +21,7 @@ function Main() {
   }
 
   if (posts.data?.length === 0 || posts.data === undefined) {
-    return (  
+    return (
       <>
         <div className="md:ml-48 absolute inset-x-0 flex justify-center ">
           <EmptyState />
@@ -34,7 +35,6 @@ function Main() {
           {posts.data.map((item) => {
             return (
               <>
-                <Link to={`/detail/${item.id}`}>
                   <ListingCard
                     id={item.id}
                     feel={item?.feelTag}
@@ -43,7 +43,6 @@ function Main() {
                     likeStatus={userLikes.data?.includes(item.id)}
                     likeCount={item?.likeCount}
                   />
-                </Link>
               </>
             );
           })}

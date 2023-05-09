@@ -9,6 +9,7 @@ function Modal({
   onClose,
   onSubmit,
   icon: Icon,
+  footer
 }) {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -53,9 +54,9 @@ function Modal({
             <div className="relative flex-auto p-6">{body} </div>
 
             {/* Footer */}
+            <div>{footer}</div>
             <div className="flex flex-col gap-2 p-6">
               <div className="flex w-full flex-row items-center gap-4">
-                
                 {/* Button */}
                 <button
                   onClick={onSubmit}
