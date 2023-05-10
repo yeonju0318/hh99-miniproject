@@ -94,6 +94,9 @@
 .chat {
   flex: 2;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .chatInfo {
     height: 50px;
