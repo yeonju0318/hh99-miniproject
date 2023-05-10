@@ -30,17 +30,17 @@ const Side = () => {
   const feelTag = useFeelTag();
   const GenreTag = useGenreTag();
   const WeatherTag = useWeatherTag();
-  const { setAnswerGpt } = useAnswerGpt();
+  const { answer } = useAnswerGpt();
 
   const onShareButton = async () => {
     const message = {
       question: `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}`,
-      answer: "",
-      feelTag: `${feelTag.feelTag}`,
-      weatherTag: `${WeatherTag.WeatherTag}`,
-      genreTag: `${GenreTag.GenreTag.text}`,
-      startPoint: "",
-      endPoint: "",
+      answer: answer,
+      feelTag: `${feelTag.feelTag.tag}`,
+      weatherTag: `${WeatherTag.WeatherTag.tag}`,
+      genreTag: `${GenreTag.GenreTag.tag}`,
+      startPoint: "#fee2e2",
+      endPoint: "#fef9c3",
     };
     try {
       const response = await axios.post(
@@ -68,7 +68,7 @@ const Side = () => {
         ))}
       </div>
       <div>
-        <button>공유하기</button>
+        <button onClick={onShareButton}>공유하기</button>
       </div>
     </div>
   );

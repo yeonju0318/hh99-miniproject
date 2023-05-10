@@ -19,8 +19,15 @@ function Input() {
   const { inputText, setInputText } = useInput();
 
   const onSendMessage = async () => {
+    let messageText = "";
+    if (inputText) {
+      messageText = `${inputText}`;
+    } else {
+      messageText = `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}`;
+    }
+
     const message = {
-      question: `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}${inputText}`,
+      question: messageText,
     };
     try {
       const response = await axios.post(
