@@ -7,12 +7,12 @@ const getPosts = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/board?page=0&size=12&sort=createdAt,DESC`
     );
-    console.log(response.data.message);
     return response.data.data;
   } catch (error) {
     console.log(error);
   }
 };
+
 
 const getUserLikes = async () => {
   try {
@@ -23,7 +23,6 @@ const getUserLikes = async () => {
         },
       }
     );
-    console.log(response.data.message);
     return response.data.data;
   } catch (error) {
     console.log(error);

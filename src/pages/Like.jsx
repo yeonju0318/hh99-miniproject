@@ -27,8 +27,6 @@ function Like() {
   if (posts.isError || userLikes.isError) {
     return <div>게시글을 불러오는데 오류가 발생했습니다.</div>;
   }
-
-  console.log(likeLists)
   if (likeLists?.length === 0 || likeLists === undefined) {
     return (  
       <>

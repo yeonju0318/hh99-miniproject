@@ -7,3 +7,55 @@ body,
 :root {
   height: 100%;
 }
+
+
+@keyframes fallingAnimation {
+  0% {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+
+  50% {
+    transition: transform 0.2s ease-in-out;
+    transform: translateY(-1px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+.falling-container {
+  animation: fallingAnimation 0.05s linear;
+}
+
+.falling-item {
+  animation: fallingAnimation 0.05s linear;
+  animation-fill-mode: both;
+}
+
+.falling-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.falling-item:nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.falling-item:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.falling-item:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.falling-item:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.falling-item:nth-child(6) {
+  animation-delay: 0.25s;
+}

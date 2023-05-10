@@ -9,16 +9,14 @@ import UserMenu from "./UserMenu";
 function Navbar() {
   const logginedUser = useLogginedUser()
   const user = logginedUser.logginedUser
-
-  console.log(user)
   return (
     <>
-      <div className="fixed-top w-full z-10 shadow-sm bg-rose-400">
-        <div className="py-4 border-b-[1px]">
+      <div className="fixed-top w-full z-10  bg-rose-400">
+        <div className="py-4 ">
           <Container>
             <div className="flex flex-row items-center justify-between gap-3 md:gap-0 ">
               <Logo />
-              <div className="ml-8 absolute inset-x-0 flex justify-center">
+              <div className="ml-4 absolute inset-x-0 flex justify-center">
                 <NavMain />
               </div>
               <UserMenu user={user} />

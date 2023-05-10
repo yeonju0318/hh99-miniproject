@@ -2,10 +2,14 @@ import React from "react";
 import Messages from "./Messages";
 import Input from "./Input";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetailPost } from "../api/post";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function Chat({ detailPage }) {
+  console.log(detailPage)
+  const navigate = useNavigate();
   const { id } = useParams();
   const {
     isLoading,
@@ -15,9 +19,28 @@ function Chat({ detailPage }) {
     refetchOnWindowFocus: false,
   });
 
+  const user = JSON.parse(localStorage.getItem("user"))?.nickname;
+
   if (isLoading) {
     return <div>로딩중 입니다...</div>;
   }
+
+  const onDeletePost = async () => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/post/${id}`,
+        {
+          headers: {
+            Access_Token: `Bearer ${Cookies.get("auth")}`,
+          },
+        }
+      );
+      console.log(response.data.message);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="chat">
@@ -38,6 +61,16 @@ function Chat({ detailPage }) {
       </div>
       <Messages detailPage={detailPage} />
       {!detailPage && <Input />}
+      {detailPage && detailPost?.data?.nickname === user && (
+        <div className="flex justify-end items-center pb-1 pr-1 mr-1">
+          <button
+            onClick={onDeletePost}
+            className="p-2  bg-rose-400 text-white rounded-lg text-base w-20"
+          >
+            삭제
+          </button>
+        </div>
+      )}
     </div>
   );
 }

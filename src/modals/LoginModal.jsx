@@ -19,6 +19,8 @@ function LoginModal() {
     password: password,
   };
 
+
+  
   // 로그인 api 통신
   const onSubmit = async () => {
     try {
@@ -115,14 +117,14 @@ function LoginModal() {
   );
 
   const footer = (
-    <div className="flex gap-4 justify-end pr-8">
-      <div className=" cursor-none">아직 회원이 아니신가요?</div>
+    <div className="flex gap-4 justify-end pr-8 items-center">
+      <div className=" cursor-default">아직 회원이 아니신가요?</div>
       <div 
       onClick={() => {
         loginModal.onClose()
         registerModal.onOpen()
       }}
-      className="cursor-pointer">회원가입 하기</div>
+      className="cursor-pointer text-sm">회원가입 하기</div>
     </div>
   )
 

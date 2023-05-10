@@ -1,6 +1,8 @@
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { AiFillDelete, AiFillEdit, AiOutlineCheckCircle, AiOutlineSend } from "react-icons/ai";
+import {ImCancelCircle} from "react-icons/im"
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { addComment, deleteComment, updateComment } from "../api/comment";
@@ -60,6 +62,7 @@ function Rightbar() {
 
   // 댓글달기 코드
   const onSubmitComment = (e) => {
+    console.log(e)
     const user = localStorage.getItem("user");
     const authCookie = Cookies.get("auth");
 
@@ -78,6 +81,9 @@ function Rightbar() {
     const newComment = { content: comment, postId: id };
     addCommentMutation.mutate(newComment);
   };
+
+
+
 
   // 덧글 삭제하는 코드
   const onDeleteComment = (commentId) => {
@@ -101,14 +107,11 @@ function Rightbar() {
 
   const createdAt = (timestamp) => {
     const date = new Date(timestamp);
-
     const year = date.getFullYear(); // 년도
     const month = date.getMonth() + 1; // 월 (0부터 시작하므로 1을 더해줌)
     const day = date.getDate(); // 일
     const hours = date.getHours(); // 시간
     const minutes = date.getMinutes(); // 분
-    const seconds = date.getSeconds(); // 초
-
     return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
   };
 
@@ -139,7 +142,7 @@ function Rightbar() {
                     {user === item.author ? (
                       onEdit == item.id ? (
                         <button onClick={() => onUpdateComment(item.id)}>
-                          완료!
+                          <AiOutlineCheckCircle/>
                         </button>
                       ) : (
                         <button
@@ -147,16 +150,16 @@ function Rightbar() {
                             setOnEdit(item.id);
                           }}
                         >
-                          수정
+                          <AiFillEdit/>
                         </button>
                       )
                     ) : null}
                     {user === item.author ? (
                       onEdit == item.id ? (
-                        <button onClick={() => setOnEdit(false)}>취소</button>
+                        <button onClick={() => setOnEdit(false)}><ImCancelCircle/></button>
                       ) : (
                         <button onClick={() => onDeleteComment(item.id)}>
-                          삭제
+                          <AiFillDelete/>
                         </button>
                       )
                     ) : null}
@@ -167,14 +170,15 @@ function Rightbar() {
           );
         })}
       </div>
-      <div className="bg-slate-200 flex justify-between p-2 h-12">
+      <div className="bg-slate-200 rounded-l-lg flex justify-between p-2 h-12">
         <input
           onChange={changeComment}
           value={comment}
           className=" bg-slate-200 w-full pl-2"
         />
-        <button onClick={onSubmitComment} className="w-[40px]">
-        </button>
+        <div onKeyDown={onSubmitComment} onClick={onSubmitComment} className="pl-5 flex flex-end cursor-pointer w-[40px] self-center">
+          <AiOutlineSend/>
+        </div>
       </div>
     </div>
   );

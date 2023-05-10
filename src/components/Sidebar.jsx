@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function Sidebar() {
   return (
     <>
-      <div className="md:flex hidden flex-col w-[176px] py-10 px-4 ">
+      <div className="md:flex hidden flex-col w-[200px] py-10 px-4 ">
         <NavLinks />
       </div>
     </>
@@ -34,9 +34,6 @@ const NavLinks = () => (
       onClick={(e) => {
         const user = localStorage.getItem("user");
         const authCookie = Cookies.get("auth");
-
-        console.log(user);
-        console.log(!authCookie);
 
         if (user && !authCookie) {
           e.preventDefault();

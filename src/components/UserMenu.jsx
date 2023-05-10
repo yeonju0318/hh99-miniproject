@@ -31,7 +31,6 @@ function UserMenu() {
     localStorage.removeItem("user")
     alert("로그아웃 완료!");
   });
-  console.log(currentUser)
   return (
     <div className="relative z-20">
       <div className="flex flex-row items-center gap-3">

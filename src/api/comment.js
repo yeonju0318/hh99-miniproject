@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { toast } from "react-hot-toast";
 
 const getComment = async () => {
   try {
@@ -34,7 +33,6 @@ const deleteComment = async (commentId) => {
     console.log(commentId)
     await axios.delete(
       `${process.env.REACT_APP_SERVER_URL}/comment/${commentId}`,
-      
       {
         headers: {
           Access_Token: `Bearer ${Cookies.get("auth")}`,

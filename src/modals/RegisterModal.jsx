@@ -7,15 +7,23 @@ import useRegisterModal from "../hooks/useRegisterModal";
 import Modal from "./Modal";
 
 function RegisterModal() {
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const loginModal = useLoginModal()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
 
   // 유저 회원가입
   const mutationSignUp = useMutation(addUser, {
-    onSuccess: () => {},
+    onSuccess: (data) => {
+        registerModal.onClose()
+        loginModal.onOpen()
+        console.log(data)
+    },
+    onError: (error) => {
+
+      console.error(error);
+    },
   });
 
   const newUser = {
@@ -29,8 +37,6 @@ function RegisterModal() {
     setEmail("");
     setPassword("");
     setNickname("");
-    registerModal.onClose();
-    loginModal.onOpen();
   };
 
   // 핸들러 부분

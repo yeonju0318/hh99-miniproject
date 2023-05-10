@@ -1,7 +1,6 @@
 import React from "react";
 import Sidenav from "./Sidenav";
 import Select from "./Select";
-import useFeelTag from "../hooks/useFeelTag";
 import useGenreTag from "../hooks/useGenreTag";
 import useWeatherTag from "../hooks/useWeatherTag";
 import useAnswerGpt from "../hooks/useAnswerGpt";
