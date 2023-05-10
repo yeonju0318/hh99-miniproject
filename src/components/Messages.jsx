@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import useInput from "../hooks/useInput";
 
-function Messages() {
+function Messages({detailPage}) {
   const feelTag = useFeelTag();
   const GenreTag = useGenreTag();
   const WeatherTag = useWeatherTag();
@@ -41,7 +41,8 @@ function Messages() {
   return (
     <div className="messages">
       <Message message1="안녕!" message2="안녕!" />
-      <Message message1={message} message2={answer} />
+      <Message message1={message} message2={answer}  detailPage={detailPage} />
+
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LikeButton from "./LikeButton";
 
@@ -12,7 +12,8 @@ function ListingCard({
   likeCount,
   likeLists,
 }) {
-  const feelWeather = `SADCLOUD`;
+  const feelWeather = `${feel}${weather}`;
+  const navigate = useNavigate();
   let startColor = "";
   let endColor = "";
   switch (feelWeather) {
@@ -474,8 +475,8 @@ function ListingCard({
 
   return (
     <div className="group col-span-1 cursor-pointer">
-      <Link to="#">
-        <div className="flex flex-col gap-2 w-full ">
+      <div className="flex flex-col gap-2 w-full ">
+        <div onClick={() => navigate(`/detail/${id}`)}>
           <div className="aspect-square w-full relative overflow-hidden rounded-xl">
             <StyledDiv startColor={startColor} endColor={endColor} />
 
@@ -483,24 +484,24 @@ function ListingCard({
               <LikeButton
                 likeStatus={likeStatus}
                 likeCount={likeCount}
-                id={id}
+                itemId={id}
                 likeLists={likeLists}
               />
             </div>
           </div>
-          <div >
-            <div className="flex">
-              <button className="text-xs  sm:font ">{`#${feel} `}</button>
-              <button className="text-xs pl-3">{`#${weather} `} </button>
-              <button className="text-xs pl-3">{`#${genre} `} </button>
-            </div>
-            <div className="font-semibold">가수</div>
-            <div className="flex flex-row items-center gap-1">
-              <div className="font-semibold">노래제목</div>
-            </div>
+        </div>
+        <div>
+          <div className="flex">
+            <button className="text-xs lg:text-sm  sm:font ">{`#${feel} `}</button>
+            <button className="text-xs lg:text-sm  pl-3">
+              {`#${weather} `}{" "}
+            </button>
+            <button className="text-xs lg:text-sm  pl-3">
+              {`#${genre} `}{" "}
+            </button>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

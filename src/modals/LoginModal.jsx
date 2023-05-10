@@ -1,14 +1,17 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useCallback, useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import Heading from "../components/Heading";
 import AuthContext from "../hooks/useCurrentUser";
 import useLoginModal from "../hooks/useLoginModal";
+import useRegisterModal from "../hooks/useRegisterModal";
 import Modal from "./Modal";
 
 function LoginModal() {
   const { setAuth } = useContext(AuthContext);
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = {
@@ -23,32 +26,25 @@ function LoginModal() {
         `${process.env.REACT_APP_SERVER_URL}/member/login`,
         user
       );
-
       console.log(JSON.stringify(response?.message));
+        console.log(response)
+
       const accessHeader = response.headers.get("Access_Token");
+      console.log(accessHeader)
       const accessToken = accessHeader.split(" ")[1];
       console.log(response.data);
-      const roles = response?.data?.roles;
       const expirationTime = new Date();
       expirationTime.setMinutes(expirationTime.getMinutes() + 10);
       Cookies.set("auth", accessToken, { expires: expirationTime });
-      
       localStorage.setItem("user", JSON.stringify(response.data.data));
       setAuth(response.data.data);
       setEmail("");
       setPassword("");
       loginModal.onClose();
       window.location.replace("/");
-      alert("로그인 성공!");
-
+      toast.success("어서오세요!");
     } catch (err) {
-      if (!err?.response) {
-        console.log("에러메세지가 없습니다.");
-      } else if (err.response?.status === 400) {
-        console.log("아이디 또는 비밀번호를 확인해주세요!");
-      } else if (err.response?.status === 401) {
-        console.log("가입되지 않은 유저입니다.");
-      }
+      toast.error(err.response)
     }
   };
   // 핸들러 부분
@@ -118,6 +114,18 @@ function LoginModal() {
     </div>
   );
 
+  const footer = (
+    <div className="flex gap-4 justify-end pr-8">
+      <div className=" cursor-none">아직 회원이 아니신가요?</div>
+      <div 
+      onClick={() => {
+        loginModal.onClose()
+        registerModal.onOpen()
+      }}
+      className="cursor-pointer">회원가입 하기</div>
+    </div>
+  )
+
   return (
     <>
       <Modal
@@ -126,7 +134,9 @@ function LoginModal() {
         actionLabel="로그인"
         onClose={loginModal.onClose}
         body={bodyContent}
+        footer={footer}
         onSubmit={onSubmit}
+
       />
     </>
   );

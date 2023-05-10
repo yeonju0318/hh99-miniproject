@@ -8,12 +8,14 @@ import { store } from "./redux/config/configStore";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./hooks/useCurrentUser";
+import ToasterProvider from "./providers/ToasterProvider";
 
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <ToasterProvider/>
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>

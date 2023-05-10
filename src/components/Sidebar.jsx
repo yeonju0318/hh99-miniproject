@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import React from "react";
+import { toast } from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 
 function Sidebar() {
@@ -41,13 +42,13 @@ const NavLinks = () => (
           e.preventDefault();
           localStorage.removeItem("user");
           window.location.replace("/");
-          return alert("세션이 만료되었습니다. 다시 로그인해주세요!");
+          return toast.error("세션이 만료되었습니다. 다시 로그인해주세요!");
         }
         if (Cookies.get("auth") === undefined) {
           e.preventDefault();
           localStorage.removeItem("user");
           window.location.replace("/");
-          return alert("로그인이 필요한 기능입니다!");
+          return toast.error("로그인이 필요한 기능입니다!");
         }
       }}
       className="flex flex-row justify-start items-center my-8 text-1xl font-medium  text-black hover:text-cyan-400"

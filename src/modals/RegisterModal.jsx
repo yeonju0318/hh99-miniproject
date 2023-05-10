@@ -2,11 +2,13 @@ import React, { useCallback, useState } from "react";
 import { useMutation } from "react-query";
 import { addUser } from "../api/auth";
 import Heading from "../components/Heading";
+import useLoginModal from "../hooks/useLoginModal";
 import useRegisterModal from "../hooks/useRegisterModal";
 import Modal from "./Modal";
 
 function RegisterModal() {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
@@ -28,6 +30,7 @@ function RegisterModal() {
     setPassword("");
     setNickname("");
     registerModal.onClose();
+    loginModal.onOpen();
   };
 
   // 핸들러 부분

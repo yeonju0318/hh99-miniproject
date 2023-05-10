@@ -58,9 +58,10 @@ const Side = () => {
     }
   };
 
+
   return (
-    <div className="flex flex-col justify-between items-center">
-      <div className="sidebar">
+   <div className="sidebar flex flex-col justify-between">
+      <div className="flex flex-col justify-around">
         <Sidenav />
         {/* <Search /> */}
         {Object.values(today).map((today) => (
@@ -68,7 +69,8 @@ const Side = () => {
         ))}
       </div>
       <div>
-        <button onClick={onShareButton}>공유하기</button>
+        <button className="w-full bg-violet-300 py-3 text-lg" onClick={onShareButton}>공유하기</button>
+
       </div>
     </div>
   );

@@ -52,12 +52,15 @@ function Input() {
   };
 
   return (
-    <div className="input">
+
+    <div className="input flex justify-between">
       <input
+    className="w-full mr-3 "
         type="text"
         placeholder="Type something..."
         onChange={onInputChangeHandler}
       />
+
       <div className="send">
         <button onClick={onSendMessage}>Send</button>
       </div>

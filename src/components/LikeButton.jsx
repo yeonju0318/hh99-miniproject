@@ -1,14 +1,20 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useMutation, useQueryClient } from "react-query";
-import { getUserLikes } from "../api/post";
+import { useMutation, useQueries, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
+import { getPosts, getUserLikes } from "../api/post";
 
-function LikeButton({ likeStatus, likeCount, id, likeLists }) {
+function LikeButton({ itemId, likeStatus, likeCount, onDetail }) {
+  const [posts, userLikes] = useQueries([
+    { queryKey: "posts", queryFn: getPosts },
+    { queryKey: "userLikes", queryFn: getUserLikes },
+  ]);
+  const { id } = useParams();
   const [hasLiked, setHasLiked] = useState(likeStatus);
   const [prevlikeCount, setPrevLikeCount] = useState(likeCount);
-
   const queryClient = useQueryClient();
   const likeMutation = useMutation(getUserLikes, {
     onSuccess: () => {
@@ -16,29 +22,29 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
     },
   });
 
+  if (onDetail !== undefined && onDetail == true) {
+    itemId = Number(id);
+  }
   const toggleLike = async (e) => {
     const user = localStorage.getItem("user");
     const authCookie = Cookies.get("auth");
 
-    console.log(user);
-    console.log(!authCookie);
-
     if (user && !authCookie) {
       localStorage.removeItem("user");
       window.location.replace("/");
-      return alert("세션이 만료되었습니다. 다시 로그인해주세요!");
+      return toast.error("세션이 만료되었습니다. 다시 로그인해주세요!");
     }
     if (Cookies.get("auth") === undefined) {
-      e.preventDefault();
+      e.stopPropagation();
       localStorage.removeItem("user");
-      window.location.replace("/");
-      return alert("로그인이 필요한 기능입니다!");
+      return toast.error("로그인이 필요한 기능입니다!");
     }
     if (hasLiked) {
       // 좋아요 취소
       try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/like/${id}`,
+        e.stopPropagation();
+        await axios.post(
+          `${process.env.REACT_APP_SERVER_URL}/like/${itemId}`,
           {},
           {
             headers: {
@@ -47,7 +53,7 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
           }
         );
       } catch (err) {
-        console.log(err);
+        toast.error(err.response.data.message);
       }
       likeMutation.mutate();
       setHasLiked(false);
@@ -56,8 +62,9 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
     } else {
       // 좋아요 +1
       try {
+        e.stopPropagation();
         const response = await axios.post(
-          `${process.env.REACT_APP_SERVER_URL}/like/${id}`,
+          `${process.env.REACT_APP_SERVER_URL}/like/${itemId}`,
           {},
           {
             headers: {
@@ -66,7 +73,7 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
           }
         );
       } catch (err) {
-        console.log(err);
+        toast.error(err.response.data.message);
       }
       likeMutation.mutate();
       setHasLiked(true);
@@ -75,6 +82,13 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
     }
   };
 
+  if (posts.isLoading) {
+    return <div>로딩중입니다</div>;
+  }
+
+  if (posts.isError) {
+    return <div>게시글을 불러오는데 오류가 발생했습니다.</div>;
+  }
   return (
     <div
       onClick={toggleLike}
@@ -86,7 +100,15 @@ function LikeButton({ likeStatus, likeCount, id, likeLists }) {
       />
       <AiFillHeart
         size={24}
-        className={hasLiked ? "fill-rose-500" : "fill-neutral-500/70"}
+        className={
+          onDetail
+            ? userLikes.data?.includes(Number(id))
+              ? "fill-rose-500"
+              : "fill-neutral-500/70"
+            : hasLiked
+            ? "fill-rose-500"
+            : "fill-neutral-500/70"
+        }
       />
     </div>
   );
