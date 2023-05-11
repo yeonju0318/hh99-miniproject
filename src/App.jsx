@@ -11,7 +11,7 @@ import { GrLinkTop } from "react-icons/gr";
 
 function App() {
   const divRef = useRef(null);
-
+  const isMain = true
   useEffect(() => {
     const user = localStorage.getItem("user");
     const authCookie = Cookies.get("auth");
@@ -51,24 +51,33 @@ function App() {
         <RegisterModal />
         <LoginModal />
 
-        <div className="relative flex">
+        <div className="relative flex ">
           <Sidebar />
           <div className="flex-1 flex flex-col">
             <div className="px-6 h-full overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-              <div className="flex-1 h-fit">
+              <div className="flex-1">
                 <Router />
               </div>
             </div>
+            
           </div>
+          <Sidebar />
+
         </div>
-        <div
-          onClick={() => {
-            divRef.current.scrollIntoView({ behavior: "smooth" });
-          }}
-          className=" absolute -x-2 flex justify-center items-center cursor-pointer h-[50px] w-[50px] rounded-full bg-rose-400 text-white font-medium
-           -right-[3px] " >
-          <GrLinkTop size={20} color="#fff" />
-        </div>
+
+         {
+          isMain && (
+            <div
+            onClick={() => {
+              divRef.current.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="mt-10 sticky flex justify-center items-center cursor-pointer h-[50px] w-[50px] rounded-full bg-rose-400 text-white font-medium
+              " >
+            <GrLinkTop size={20} color="#fff" />
+          </div>
+          )
+         }
+       
       </div>
     </>
   );

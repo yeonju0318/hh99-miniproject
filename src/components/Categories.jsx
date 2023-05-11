@@ -116,7 +116,7 @@ function Categories() {
 
   return (
     <div className="flex flex-col justify-center relative bg-white">
-      <div className="pl-4 py-2 flex flex-row items-center justify-center overflow-x-auto border-y-[3px] border-stone-950 ">
+      <div className="pl-20 py-2 flex flex-row items-center justify-center overflow-x-auto border-y-[3px] border-stone-950 ">
         {feelCategories.feelCategories === null ? (
           <div
             onClick={() => {
@@ -203,7 +203,7 @@ function Categories() {
             setOnGenreTag(false);
           }}
         >
-          리셋
+          필터링 리셋!
         </div>
       </div>
 

@@ -81,8 +81,7 @@ function Question() {
 
   return (
     <>
-      <button onClick={onSubmitPost}>테스트</button>
-      <div className="question">
+     <div className="question">
         <div className="container">
           <Side />
           <Chat />

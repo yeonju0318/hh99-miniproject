@@ -44,7 +44,7 @@ function Profile() {
 
   return (
     <>
-      <div className="justify-center items-center flex  fixed inset-0 outline-none focus:outline-none ">
+      <div className="justify-center items-center flex inset-0 outline-none focus:outline-none ">
         <div className=" w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto  ">
           {/* CONTENT */}
 
