@@ -9,6 +9,8 @@ import useInput from "../hooks/useInput";
 import { useRef } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
+import useGPTLoading from "../hooks/useGPTLoading";
 
 function Input() {
   const inputRef = useRef(null);
@@ -18,8 +20,9 @@ function Input() {
   const WeatherTag = useWeatherTag();
   const { setAnswerGpt } = useAnswerGpt();
   const { inputText, setInputText } = useInput();
-
+  const GPTLoading = useGPTLoading()
   const onSendMessage = async () => {
+    GPTLoading.onLoading()
     if (
       !feelTag.feelTag.text ||
       !GenreTag.GenreTag.text ||
@@ -57,10 +60,11 @@ function Input() {
       console.log(response.data);
       setAnswerGpt(response.data.data.answer);
     } catch (error) {
-      console.log(error);
+      toast.error("서버 통신 오류!");
     }
+    GPTLoading.offLoading()
+
     inputRef.current.value = "";
-    // 여기서 안에 text가 초기화 되버려서 message컴포넌트에서도 적용이 안됨
   };
 
   const onInputChangeHandler = (e) => {
@@ -90,13 +94,12 @@ function Input() {
         ref={inputRef}
         className="w-full mr-3 "
         type="text"
-        placeholder="Type something..."
+        placeholder="추가적으로 물어볼 내용을 적어주세요!"
         value={inputText.inputText}
         onChange={onInputChangeHandler}
         onFocus={onInputFocus}
         readOnly={
           !(
-            // inputText.inputText &&
             (feelTag.feelTag && GenreTag.GenreTag && WeatherTag.WeatherTag)
           )
         }
@@ -105,7 +108,11 @@ function Input() {
       <div className="send">
         <button onClick={onSendMessage}>Send</button>
       </div>
+      <div>
+
+      </div>
     </div>
+    
   );
 }
 

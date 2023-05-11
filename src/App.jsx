@@ -48,6 +48,7 @@ function App() {
   return (
     <>
       <div ref={divRef} className="relative">
+        {GPTLoadinginfo.GPTLoading && <GPTLoading />}
         <Navbar />
         <RegisterModal />
         <LoginModal />
@@ -64,18 +65,23 @@ function App() {
           <Sidebar />
         </div>
 
-        {isMain && (
-          <div
-            onClick={() => {
-              divRef.current.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="mt-10 sticky flex justify-center items-center cursor-pointer h-[50px] w-[50px] rounded-full bg-rose-400 text-white font-medium
-              "
-          >
-            <GrLinkTop size={20} color="#fff" />
-          </div>
-        )}
+        
       </div>
+      {isMain && (
+         <div
+         onClick={() => {
+           divRef.current.scrollIntoView({ behavior: "smooth" });
+         }}
+         className="mt-10 absolute flex justify-center items-center cursor-pointer h-[50px] w-[50px] rounded-full bg-rose-400 text-white font-medium"
+        //  style={{
+        //    position: "fixed",
+        //    bottom: "20px",
+        //    right: "20px",
+        //  }}
+       >
+         <GrLinkTop size={20} color="#fff" />
+       </div>
+        )}
     </>
   );
 }
