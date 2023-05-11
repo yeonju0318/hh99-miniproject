@@ -28,7 +28,7 @@ function Message(props) {
         <div className="message">
           <div className="messageInfo">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE9eEW7vaicuCPVfq9zxavCX4X8eI8N6ltjRS8j4csIGSeNRHE-3xDbpp6_4PPnvnb1UM&usqp=CAU"
+              src="https://sazan.cafe24.com/character/hopan-man/hopangmen_1.jpg"
               alt="user"
             />
           </div>
@@ -37,8 +37,6 @@ function Message(props) {
           </div>
         </div>
       )}
-
-
     </>
   );
 }
