@@ -10,6 +10,8 @@ import Router from "./shared/Router";
 import { GrLinkTop } from "react-icons/gr";
 import axios from "axios";
 import ListingCard from "./components/ListingCard";
+import useGPTLoading from "./hooks/useGPTLoading";
+import GPTLoading from "./components/GPTLoading";
 // import { ToastContainer } from "react-toastify";
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
   //   }
   // }, []);
 ;
+const GPTLoadinginfo = useGPTLoading()
   useEffect(() => {
     const fetchData = async () => {
       try {
