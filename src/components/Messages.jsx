@@ -17,7 +17,8 @@ function Messages({ detailPage }) {
   const WeatherTag = useWeatherTag();
   const { answer } = useAnswerGpt();
   const [message, setMessage] = useState(null);
-  const inputText = useInput((state) => state.inputText);
+  const inputState = useInput();
+  const inputText = inputState.inputText;
 
   useEffect(() => {
     if (
@@ -39,7 +40,7 @@ function Messages({ detailPage }) {
     } else {
       setMessage(null);
     }
-  }, [feelTag, GenreTag, WeatherTag, answer])
+  }, [feelTag, GenreTag, WeatherTag, answer]);
 
   const { id } = useParams();
   const {
@@ -72,13 +73,13 @@ function Messages({ detailPage }) {
       </React.Fragment>
     ));
 
-
-
-
   return (
     <div className="messages">
       <Message message1="안녕!" message2="안녕!" />
-      <Message message1={detailPage?formattedQuestion: message} message2={detailPage?formattedAnswer: answer} />
+      <Message
+        message1={detailPage ? formattedQuestion : message}
+        message2={detailPage ? formattedAnswer : answer}
+      />
     </div>
   );
 }
