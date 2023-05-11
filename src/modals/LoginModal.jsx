@@ -11,7 +11,7 @@ import Modal from "./Modal";
 function LoginModal() {
   const { setAuth } = useContext(AuthContext);
   const loginModal = useLoginModal();
-  const registerModal = useRegisterModal()
+  const registerModal = useRegisterModal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = {
@@ -19,8 +19,6 @@ function LoginModal() {
     password: password,
   };
 
-
-  
   // 로그인 api 통신
   const onSubmit = async () => {
     try {
@@ -29,15 +27,11 @@ function LoginModal() {
         user
       );
       console.log(JSON.stringify(response?.message));
-        console.log(response)
+      console.log(response);
 
       const accessHeader = response.headers.get("Access_Token");
-      console.log(accessHeader)
       const accessToken = accessHeader.split(" ")[1];
-      console.log(response.data);
-      const expirationTime = new Date();
-      expirationTime.setMinutes(expirationTime.getMinutes() + 10);
-      Cookies.set("auth", accessToken, { expires: expirationTime });
+      Cookies.set("auth", accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.data));
       setAuth(response.data.data);
       setEmail("");
@@ -46,7 +40,7 @@ function LoginModal() {
       window.location.replace("/");
       toast.success("어서오세요!");
     } catch (err) {
-      toast.error(err.response)
+      toast.error(err.response);
     }
   };
   // 핸들러 부분
@@ -119,14 +113,17 @@ function LoginModal() {
   const footer = (
     <div className="flex gap-4 justify-end pr-8 items-center">
       <div className=" cursor-default">아직 회원이 아니신가요?</div>
-      <div 
-      onClick={() => {
-        loginModal.onClose()
-        registerModal.onOpen()
-      }}
-      className="cursor-pointer text-sm">회원가입 하기</div>
+      <div
+        onClick={() => {
+          loginModal.onClose();
+          registerModal.onOpen();
+        }}
+        className="cursor-pointer text-sm"
+      >
+        회원가입 하기
+      </div>
     </div>
-  )
+  );
 
   return (
     <>
@@ -138,7 +135,6 @@ function LoginModal() {
         body={bodyContent}
         footer={footer}
         onSubmit={onSubmit}
-
       />
     </>
   );

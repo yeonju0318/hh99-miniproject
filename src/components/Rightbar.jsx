@@ -1,8 +1,13 @@
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { AiFillDelete, AiFillEdit, AiOutlineCheckCircle, AiOutlineSend } from "react-icons/ai";
-import {ImCancelCircle} from "react-icons/im"
+import {
+  AiFillDelete,
+  AiFillEdit,
+  AiOutlineCheckCircle,
+  AiOutlineSend,
+} from "react-icons/ai";
+import { ImCancelCircle } from "react-icons/im";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { addComment, deleteComment, updateComment } from "../api/comment";
@@ -62,7 +67,7 @@ function Rightbar() {
 
   // 댓글달기 코드
   const onSubmitComment = (e) => {
-    console.log(e)
+    e.preventDefault()
     const user = localStorage.getItem("user");
     const authCookie = Cookies.get("auth");
 
@@ -82,9 +87,6 @@ function Rightbar() {
     addCommentMutation.mutate(newComment);
   };
 
-
-
-
   // 덧글 삭제하는 코드
   const onDeleteComment = (commentId) => {
     deleteCommentMutation.mutate(commentId);
@@ -102,8 +104,7 @@ function Rightbar() {
   const changeComment = (e) => {
     setComment(e.target.value);
   };
-
-  const commentsData = detailPost?.data.comments;
+  const commentsData = detailPost?.data?.comments;
 
   const createdAt = (timestamp) => {
     const date = new Date(timestamp);
@@ -126,7 +127,7 @@ function Rightbar() {
         {commentsData?.map((item) => {
           return (
             <>
-              <div className="flex flex-col pb-3 w-11/12 border-b-[1px] self-center">
+              <div className="flex flex-col pb-2 w-11/12 border-b-[1px] self-center mt-2  ">
                 <div className="flex gap-2 items-center" key={item.id}>
                   <div className="text-lg">{item.author}</div>
                   <div className="text-xs">{createdAt(item.createdAt)}</div>
@@ -142,7 +143,7 @@ function Rightbar() {
                     {user === item.author ? (
                       onEdit == item.id ? (
                         <button onClick={() => onUpdateComment(item.id)}>
-                          <AiOutlineCheckCircle/>
+                          <AiOutlineCheckCircle />
                         </button>
                       ) : (
                         <button
@@ -150,16 +151,18 @@ function Rightbar() {
                             setOnEdit(item.id);
                           }}
                         >
-                          <AiFillEdit/>
+                          <AiFillEdit />
                         </button>
                       )
                     ) : null}
                     {user === item.author ? (
                       onEdit == item.id ? (
-                        <button onClick={() => setOnEdit(false)}><ImCancelCircle/></button>
+                        <button onClick={() => setOnEdit(false)}>
+                          <ImCancelCircle />
+                        </button>
                       ) : (
                         <button onClick={() => onDeleteComment(item.id)}>
-                          <AiFillDelete/>
+                          <AiFillDelete />
                         </button>
                       )
                     ) : null}
@@ -176,8 +179,16 @@ function Rightbar() {
           value={comment}
           className=" bg-slate-200 w-full pl-2"
         />
-        <div onKeyDown={onSubmitComment} onClick={onSubmitComment} className="pl-5 flex flex-end cursor-pointer w-[40px] self-center">
-          <AiOutlineSend/>
+        <div
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onSubmitComment();
+            }
+          }}
+          onClick={onSubmitComment}
+          className="pl-5 flex flex-end cursor-pointer w-[40px] self-center"
+        >
+          <AiOutlineSend />
         </div>
       </div>
     </div>

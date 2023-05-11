@@ -44,7 +44,7 @@ function Profile() {
 
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none ">
+      <div className="justify-center items-center flex inset-0 outline-none focus:outline-none ">
         <div className=" w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto  ">
           {/* CONTENT */}
 
@@ -58,10 +58,13 @@ function Profile() {
                     publicId={publicId}
                   />
                 ) : (
-                  <>
-                    <img className="w-full h-full" src= {process.env.PUBLIC_URL + '/imgs/placeholder.jpg'} />
+                  <div className="flex flex-col justify-center items-center">
+                    <img
+                      className="w-[200px] h-[200px] "
+                      src={process.env.PUBLIC_URL + "/imgs/placeholder.jpg"}
+                    />
                     <div> 이미지를 등록해주세요!</div>
-                  </>
+                  </div>
                 )}
                 <div className="flex justify-end mt-2 gap-3">
                   <input

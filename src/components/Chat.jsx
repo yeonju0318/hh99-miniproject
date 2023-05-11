@@ -8,7 +8,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 function Chat({ detailPage }) {
-  console.log(detailPage)
   const navigate = useNavigate();
   const { id } = useParams();
   const {
