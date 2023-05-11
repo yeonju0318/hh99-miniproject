@@ -1,22 +1,21 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
 import useFeelTag from "../hooks/useFeelTag";
 import useGenreTag from "../hooks/useGenreTag";
 import useWeatherTag from "../hooks/useWeatherTag";
 import Cookies from "js-cookie";
 import useAnswerGpt from "../hooks/useAnswerGpt";
 import useInput from "../hooks/useInput";
+import { useRef } from "react";
 
 function Input() {
-  // const [inputText, setInputText] = useState("");
-  // const [isQuestionbyButton, setIsQuestionbyButton] = useState(false);
+  const inputRef = useRef(null);
 
   const feelTag = useFeelTag();
   const GenreTag = useGenreTag();
   const WeatherTag = useWeatherTag();
   const { setAnswerGpt } = useAnswerGpt();
-  const {inputText, setInputText} = useInput();
+  const { inputText, setInputText, clearInputText } = useInput();
 
   const onSendMessage = async () => {
     const messageText = `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}${inputText}`;
@@ -35,11 +34,10 @@ function Input() {
       );
       console.log(response.data);
       setAnswerGpt(response.data.data.answer);
-      // setInputText("");
     } catch (error) {
       console.log(error);
     }
-    // setInputText("");
+    inputRef.current.value = "";
     // 여기서 안에 text가 초기화 되버려서 message컴포넌트에서도 적용이 안됨
   };
 
@@ -50,6 +48,7 @@ function Input() {
   return (
     <div className="input flex justify-between">
       <input
+        ref={inputRef}
         className="w-full mr-3 "
         type="text"
         placeholder="Type something..."
