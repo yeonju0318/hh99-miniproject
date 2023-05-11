@@ -60,7 +60,7 @@ function Modal({
                 {/* Button */}
                 <button
                   onClick={onSubmit}
-                  className="relative w-full rounded-lg transition hover:opacity-80 bg-blue-500 border-blue-500 text-white py-3 text-md font-semibold border-2"
+                  className="relative w-full rounded-lg transition hover:opacity-80 bg-rose-400 border-rose-400 text-white py-3 text-md font-semibold border-2"
                 >
                   {Icon && <Icon size={24} className="absolute left-4 top-3" />}
                   {actionLabel}

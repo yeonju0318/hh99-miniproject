@@ -16,7 +16,9 @@ const addComment = async (payload) => {
   try {
     await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/comment/${payload.postId}`,
+
       { content: payload.content },
+      
       {
         headers: {
           Access_Token: `Bearer ${Cookies.get("auth")}`,
@@ -30,7 +32,6 @@ const addComment = async (payload) => {
 
 const deleteComment = async (commentId) => {
   try {
-    console.log(commentId)
     await axios.delete(
       `${process.env.REACT_APP_SERVER_URL}/comment/${commentId}`,
       {
@@ -46,8 +47,6 @@ const deleteComment = async (commentId) => {
 
 const updateComment = async (payload) => {
   try {
-    console.log(payload)
-    console.log(payload.commentId)
     await axios.put(
       `${process.env.REACT_APP_SERVER_URL}/comment/${payload.commentId}`,
       {content: payload.content},

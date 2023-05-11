@@ -9,6 +9,24 @@ body,
 }
 
 
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Open+Sans:wght@400;600;700&family=Poor+Story&display=swap');
+
+@font-face {
+  font-family: 'Jua', sans-serif;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/MaruBuri-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html > body {
+font-family: 'Jua', 'Open Sans', serif , 'Poor Story', cursive;
+}
+
+
+
+
+
 @keyframes fallingAnimation {
   0% {
     transform: translateY(-50%);
@@ -59,3 +77,6 @@ body,
 .falling-item:nth-child(6) {
   animation-delay: 0.25s;
 }
+
+
+

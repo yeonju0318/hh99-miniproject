@@ -16,16 +16,17 @@ function Input() {
   const GenreTag = useGenreTag();
   const WeatherTag = useWeatherTag();
   const { setAnswerGpt } = useAnswerGpt();
-  const { inputText, setInputText } = useInput();
+  const inputText = useInput();
 
   const onSendMessage = async () => {
     let messageText = "";
-    if (inputText) {
-      messageText = `${inputText}`;
+    if (inputText.inputText) {
+      messageText = `${inputText.inputText}`;
     } else {
       messageText = `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}`;
     }
 
+    console.log (feelTag.feelTag.text)
     const message = {
       question: messageText,
     };
@@ -41,24 +42,25 @@ function Input() {
       );
       console.log(response.data);
       setAnswerGpt(response.data.data.answer);
-      // setInputText("");
+      inputText.setInputText("");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onInputChangeHandler = (e) => {
-    setInputText(e.target.value);
-  };
+  // const onInputChangeHandler = (e) => {
+  //   setInputText(e.target.value);
+  // };
 
   return (
 
     <div className="input flex justify-between">
       <input
-    className="w-full mr-3 "
+      
+    className={`w-full mr-3 ${feelTag?.feelTag?.length ===0 ||GenreTag?.GenreTag?.length ===0 || WeatherTag?.WeatherTag?.length ===0 ?  "pointer-events-none opacity-50" : ""}`}
         type="text"
         placeholder="Type something..."
-        onChange={onInputChangeHandler}
+        // onChange={onInputChangeHandler}
       />
 
       <div className="send">

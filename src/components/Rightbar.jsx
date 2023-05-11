@@ -62,7 +62,6 @@ function Rightbar() {
 
   // 댓글달기 코드
   const onSubmitComment = (e) => {
-    console.log(e)
     const user = localStorage.getItem("user");
     const authCookie = Cookies.get("auth");
 
@@ -102,8 +101,7 @@ function Rightbar() {
   const changeComment = (e) => {
     setComment(e.target.value);
   };
-
-  const commentsData = detailPost?.data.comments;
+  const commentsData = detailPost?.data?.comments;
 
   const createdAt = (timestamp) => {
     const date = new Date(timestamp);

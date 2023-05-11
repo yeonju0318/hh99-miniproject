@@ -39,12 +39,12 @@ function UserMenu() {
           onClick={() => {
             setIsOpen(true);
           }}
-          className="hidden cursor-default lg:block text-sm font-semibold py-3 px-4 rounded-full"
+          className="hidden cursor-default lg:block text-sm font-semibold py-3 px-4 rounded-full  items-end"
         >
           {currentUser?.nickname === undefined ||
           currentUser?.nickname === null ||
           currentUser?.nickname.length == 0
-            ? "로그인을 해주세요!"
+            ? "AI가 추천해주는 노래 듣기!"
             : currentUser.nickname + "님! 오늘의 기분은 어떤가요?"}
         </div>
         <div

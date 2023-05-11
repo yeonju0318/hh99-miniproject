@@ -22,7 +22,7 @@ function Detail() {
 
   return (
     <>
-      <div className="question mt-12">
+      <div className="question mt-3">
         <div className="container">
           <Chat detailPost={detailPost} detailPage={true} />
           <Rightbar detailPost={detailPost} />

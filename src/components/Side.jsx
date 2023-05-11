@@ -39,8 +39,7 @@ const Side = () => {
       feelTag: `${feelTag.feelTag.tag}`,
       weatherTag: `${WeatherTag.WeatherTag.tag}`,
       genreTag: `${GenreTag.GenreTag.tag}`,
-      startPoint: "#fee2e2",
-      endPoint: "#fef9c3",
+      gradient: "background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);"
     };
     try {
       const response = await axios.post(
