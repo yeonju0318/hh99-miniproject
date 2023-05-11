@@ -7,6 +7,8 @@ import Cookies from "js-cookie";
 import useAnswerGpt from "../hooks/useAnswerGpt";
 import useInput from "../hooks/useInput";
 import { useRef } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Input() {
   const inputRef = useRef(null);
@@ -15,7 +17,7 @@ function Input() {
   const GenreTag = useGenreTag();
   const WeatherTag = useWeatherTag();
   const { setAnswerGpt } = useAnswerGpt();
-  const { inputText, setInputText, clearInputText } = useInput();
+  const { inputText, setInputText } = useInput();
 
   const onSendMessage = async () => {
     const messageText = `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}${inputText}`;
@@ -45,6 +47,23 @@ function Input() {
     setInputText(e.target.value);
   };
 
+  const onInputFocus = () => {
+    if (!feelTag.feelTag || !GenreTag.GenreTag || !WeatherTag.WeatherTag) {
+      toast.warning(
+        <>
+          <p>왼쪽 선택지를 누르고</p>
+          <p>추가 질문을 입력해주세요!</p>
+        </>,
+        {
+          position: "bottom-center",
+          autoClose: 2000,
+          pauseOnHover: false,
+          pauseOnFocusLoss: false,
+        }
+      );
+    }
+  };
+
   return (
     <div className="input flex justify-between">
       <input
@@ -54,6 +73,7 @@ function Input() {
         placeholder="Type something..."
         value={inputText.inputText}
         onChange={onInputChangeHandler}
+        onFocus={onInputFocus}
         readOnly={
           !(
             // inputText.inputText &&
@@ -61,7 +81,7 @@ function Input() {
           )
         }
       />
-
+      <ToastContainer position="top-left" autoClose={3000} />
       <div className="send">
         <button onClick={onSendMessage}>Send</button>
       </div>

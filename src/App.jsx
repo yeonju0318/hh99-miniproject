@@ -8,10 +8,11 @@ import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import Router from "./shared/Router";
 import { GrLinkTop } from "react-icons/gr";
+// import { ToastContainer } from "react-toastify";
 
 function App() {
   const divRef = useRef(null);
-  const isMain = true
+  const isMain = true;
   useEffect(() => {
     const user = localStorage.getItem("user");
     const authCookie = Cookies.get("auth");
@@ -22,7 +23,6 @@ function App() {
       toast.error("세션이 만료되었습니다. 다시 로그인해주세요!");
     }
   }, []);
-
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -59,25 +59,21 @@ function App() {
                 <Router />
               </div>
             </div>
-            
           </div>
           <Sidebar />
-
         </div>
 
-         {
-          isMain && (
-            <div
+        {isMain && (
+          <div
             onClick={() => {
               divRef.current.scrollIntoView({ behavior: "smooth" });
             }}
             className="mt-10 sticky flex justify-center items-center cursor-pointer h-[50px] w-[50px] rounded-full bg-rose-400 text-white font-medium
-              " >
+              "
+          >
             <GrLinkTop size={20} color="#fff" />
           </div>
-          )
-         }
-       
+        )}
       </div>
     </>
   );
