@@ -20,6 +20,26 @@ function Input() {
   const { inputText, setInputText } = useInput();
 
   const onSendMessage = async () => {
+    if (
+      !feelTag.feelTag.text ||
+      !GenreTag.GenreTag.text ||
+      !WeatherTag.WeatherTag.text
+    ) {
+      toast.info(
+        <>
+          <p>모든 선택지를 눌러야</p>
+          <p>메세지를 전송할 수 있습니다.</p>
+        </>,
+        {
+          position: "top-center",
+          autoClose: 2000,
+          pauseOnHover: false,
+          pauseOnFocusLoss: false,
+        }
+      );
+      return;
+    }
+
     const messageText = `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}${inputText}`;
     const message = {
       question: messageText,
@@ -51,7 +71,7 @@ function Input() {
     if (!feelTag.feelTag || !GenreTag.GenreTag || !WeatherTag.WeatherTag) {
       toast.warning(
         <>
-          <p>왼쪽 선택지를 누르고</p>
+          <p>모든 선택지를 누르고</p>
           <p>추가 질문을 입력해주세요!</p>
         </>,
         {
