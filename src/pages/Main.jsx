@@ -105,6 +105,7 @@ function Main() {
   } else {
     // 모두 선택되지 않았을 때
     if (feelTag === null && weatherTag === null && genreTag === null) {
+      
       return (
         <>
           <Container>
@@ -119,6 +120,7 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
                     />
                   </>
                 );
@@ -147,6 +149,8 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
+
                     />
                   </>
                 );
@@ -175,6 +179,8 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
+
                     />
                   </>
                 );
@@ -203,6 +209,8 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
+
                     />
                   </>
                 );
@@ -231,6 +239,8 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
+
                     />
                   </>
                 );
@@ -259,6 +269,8 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
+
                     />
                   </>
                 );
@@ -287,6 +299,8 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item?.gradient}
+
                     />
                   </>
                 );
@@ -316,6 +330,7 @@ function Main() {
                       genre={item?.genreTag}
                       likeStatus={userLikes.data?.includes(item.id)}
                       likeCount={item?.likeCount}
+                      gradient={item.gradient}
                     />
                   </>
                 );

@@ -16,13 +16,10 @@ function Input() {
   const GenreTag = useGenreTag();
   const WeatherTag = useWeatherTag();
   const { setAnswerGpt } = useAnswerGpt();
-  const inputText = useInput();
+  const {inputText, setInputText} = useInput();
 
   const onSendMessage = async () => {
     const messageText = `${feelTag.feelTag.text}${GenreTag.GenreTag.text}${WeatherTag.WeatherTag.text}${inputText}`;
-
-
-    console.log (feelTag.feelTag.text)
     const message = {
       question: messageText,
     };
@@ -38,8 +35,7 @@ function Input() {
       );
       console.log(response.data);
       setAnswerGpt(response.data.data.answer);
-      inputText.setInputText("");
-
+      // setInputText("");
     } catch (error) {
       console.log(error);
     }
@@ -47,9 +43,9 @@ function Input() {
     // 여기서 안에 text가 초기화 되버려서 message컴포넌트에서도 적용이 안됨
   };
 
-  // const onInputChangeHandler = (e) => {
-  //   setInputText(e.target.value);
-  // };
+  const onInputChangeHandler = (e) => {
+    setInputText(e.target.value);
+  };
 
   return (
     <div className="input flex justify-between">
@@ -65,7 +61,6 @@ function Input() {
             (feelTag.feelTag && GenreTag.GenreTag && WeatherTag.WeatherTag)
           )
         }
-
       />
 
       <div className="send">

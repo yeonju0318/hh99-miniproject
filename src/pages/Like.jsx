@@ -93,6 +93,7 @@ function Like() {
                         likeStatus={userLikes.data?.includes(item.id)}
                         likeCount={item?.likeCount}
                         likeLists={likeLists}
+                        gradient={item?.gradient}
                       />
                     </Link>
                   </>
