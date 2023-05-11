@@ -8,42 +8,43 @@ import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import Router from "./shared/Router";
 import { GrLinkTop } from "react-icons/gr";
+import axios from "axios";
+import ListingCard from "./components/ListingCard";
 // import { ToastContainer } from "react-toastify";
 
 function App() {
   const divRef = useRef(null);
   const isMain = true;
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    const authCookie = Cookies.get("auth");
-
-    if (user !== null && authCookie === undefined) {
-      localStorage.removeItem("user");
-      window.location.replace("/");
-      toast.error("세션이 만료되었습니다. 다시 로그인해주세요!");
-    }
-  }, []);
-
   // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_SERVER_URL}/member`,
-  //         {
-  //           headers: {
-  //             Access_Token: `Bearer ${Cookies.get("auth")}`,
-  //           },
-  //         }
-  //       );
-  //       localStorage.setItem("user", JSON.stringify(response.data.data));
-  //     } catch (error) {
-  //       toast.error(error.response.data.message);
-  //     }
-  //   };
+  //   const user = localStorage.getItem("user");
+  //   const authCookie = Cookies.get("auth");
 
-  //   fetchData();
+  //   if (user !== null && authCookie === undefined) {
+  //     localStorage.removeItem("user");
+  //     window.location.replace("/");
+  //     toast.error("세션이 만료되었습니다. 다시 로그인해주세요!");
+  //   }
   // }, []);
+;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/member`,
+          {
+            headers: {
+              Access_Token: `Bearer ${Cookies.get("auth")}`,
+            },
+          }
+        );
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
 
+    fetchData();
+  }, []);
   return (
     <>
       <div ref={divRef} className="relative">
